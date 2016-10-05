@@ -1,0 +1,91 @@
+<!-- <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script> -->
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<!-- <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' /> -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.22.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.22.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    .map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+
+<div id='map-one' class='map'> </div>
+<script>
+// Returns a random integer between min (included) and max (included)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandom(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+var map;
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2FtaWthemVncmVlbiIsImEiOiJINE9RRFhvIn0.K7qZW250wpNclZ0Ii-EG6Q';
+$(document).ready(function(){
+  // var url = "https://api.mapbox.com/styles/v1/camikazegreen/cirhvvqh00015hhmcwbgi25vl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2FtaWthemVncmVlbiIsImEiOiJINE9RRFhvIn0.K7qZW250wpNclZ0Ii-EG6Q"
+  var url = 'mapbox://styles/camikazegreen/cirhvvqh00015hhmcwbgi25vl'
+  //whole map bounds: {"_southWest":{"lat":33.24787594792436,"lng":-17.314453125},"_northEast":{"lat":54.265224078605655,"lng":42.71484375}}
+  var bounds = [
+    [-17.2,33.2], // Southwest coordinates
+    [42.8, 54.2]  // Northeast coordinates
+];
+  // var map = L.mapbox.map('map-one', url).setView([44.69989765840321,12.7001953125], 5);
+  var map = new mapboxgl.Map({
+    container: 'map-one',
+    style: url,
+    center: [12,45],
+    zoom: 4,
+    maxBounds: bounds, // Sets bounds as max
+    maxZoom:10
+});
+  // var styleLayer = L.tileLayer(url)
+  //   .addTo(map);
+    map.on('zoomend',function(e){
+        var mapBounds = map.getBounds();
+        mapBounds = JSON.stringify(mapBounds);
+        console.log(mapBounds);
+        var mapCenter = map.getCenter();
+        console.log(mapCenter);
+        var zoom = map.getZoom();
+        console.log(zoom);
+        if(zoom >= 9){
+            jQuery.ajax({
+              type:"GET",
+              url: '/map/getGrid',
+              data:{info:mapBounds},
+              success: function (response){
+                console.log("response from the server: ", response);
+                // var centerLine = Math.floor(response.length/2);
+                // var centerPoint = Math.floor(response[0].length/2);
+                var options = {fill:false, weight: 1, opacity:1, stroke:true};
+                var grid = response;
+                map.addSource("grid",{
+                  "type":"geojson",
+                  "data":response
+                });
+                map.addLayer({
+                  "id": "grid",
+                  "source": "grid",
+                  "type": "fill",
+                  "paint": {
+                    // "line-width": 2,
+                    // "line-color": "#007cbf"
+                  }
+                });
+        // for (var i = grid.length - 1; i >= 0; i--) {
+        //     for (var j = grid[i].length - 1; j >= 0; j--) {
+
+        //         var southwest = [grid[i][j][0],grid[i][j][1]];
+        //         var northeast = [grid[i][j][0],grid[i][j][1]];
+        //         var bounds = [southwest, northeast];
+        //         L.rectangle(bounds, options).addTo(map);
+        //     }
+        // }
+            }
+        })
+        }
+    })
+    map.on('click',function(e){
+        console.log(e.latlng.lng)
+    })
+})
+
+</script>
