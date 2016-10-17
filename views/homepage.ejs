@@ -83,6 +83,78 @@ $(document).ready(function(){
     map.on('click',function(e){
         console.log(e.latlng.lng)
     })
+    var minimap = new mapboxgl.Map({
+    container: 'minimap',
+    style: url,
+    center: [11,45],
+    zoom: 1.636586
+});
+    minimap.on('load',function(e){
+          minimap.addSource('redsquare',{
+        'type': 'geojson',
+        'data': {
+            'type': 'Feature',
+            'properties': {
+                'name': 'redsquare'
+            },
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates':[
+                [42.799999999999244, 53.757350932349],
+                    [-17.199999999999733, 53.757350932349],
+                    [-17.199999999999733, 34.148708513879],
+                    [42.799999999999244, 34.148708513879],
+                    [42.799999999999244, 53.757350932349]
+                    ]
+            }
+        }
+    });
+
+      minimap.addLayer({
+        'id': 'zoombox',
+        'type': 'line',
+        'source': 'redsquare',
+        'layout': {},
+        'paint': {
+            'line-color': '#f00',
+            'line-opacity': 0.8
+        }
+    });
+      })
+    function moveRedSquare(e){
+      var b = map.getBounds();
+      console.log("bounds = ",b)
+      minimap.getSource("redsquare").setData({
+            'type': 'Feature',
+            'properties': {
+                'name': 'redsquare'
+            },
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates':[[
+                [b._sw.lng, b._sw.lat],
+                    [b._ne.lng, b._sw.lat],
+                    [b._ne.lng, b._ne.lat],
+                    [b._sw.lng, b._ne.lat],
+                    [b._sw.lng, b._sw.lat]
+                    ]]
+            }
+        })
+      console.log(minimap.getSource('redsquare'))
+
+    }
+    minimap.on('click',function(e){
+      console.log("defined",e.lngLat);
+      map.setZoom(10);
+      map.flyTo({center: e.lngLat, zoom: 8});
+    })
+    map.on('zoom',function(e){
+      moveRedSquare(e);
+      })
+    map.on('move',function(e){
+      moveRedSquare(e);
+    })
+
 })
 
 </script>
