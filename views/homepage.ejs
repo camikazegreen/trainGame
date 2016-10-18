@@ -18,23 +18,7 @@ var map;
 var currentBounds;
 var currentZoom;
 var currentSquare = {}
-    currentSquare.data = {
-            'type': 'Feature',
-            'properties': {
-                'name': 'keyboardsquare'
-            },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates':[[
-                [12,45],
-                    [12.025, 45],
-                    [12.025, 45.02],
-                    [12, 45.02],
-                    [12, 45]
-                    ]]
-            }
-        }
-
+    currentSquare.data = {'type': 'Feature','properties': {'name': 'keyboardsquare'},'geometry': {'type': 'Polygon','coordinates':[[[12,45],[12.025, 45],[12.025, 45.02],[12, 45.02],[12, 45]]]}}
     currentSquare.center = [12,45]
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2FtaWthemVncmVlbiIsImEiOiJINE9RRFhvIn0.K7qZW250wpNclZ0Ii-EG6Q';
@@ -83,72 +67,20 @@ $(document).ready(function(){
     zoom: 1.636586
 });
     minimap.on('load',function(e){
-
-          minimap.addSource('redsquare',{
-        'type': 'geojson',
-        'data': {
-            'type': 'Feature',
-            'properties': {
-                'name': 'redsquare'
-            },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates':[
-                [42, 53],
-                    [-17, 53],
-                    [-17, 34],
-                    [42, 34],
-                    [42, 53]
-                    ]
-            }
-        }
-    });
-
-      minimap.addLayer({
-        'id': 'zoombox',
-        'type': 'line',
-        'source': 'redsquare',
-        'layout': {},
-        'paint': {
-            'line-color': '#f00',
-            'line-opacity': 0.8
-        }
-    });   }); 
-      map.on('load',function(e){
-        updateDataBox();
-        currentBounds = map.getBounds();
-        currentZoom = map.getZoom();
-          map.addSource('keyboardsquare',{
-        'type': 'geojson',
-        'data': {
-            'type': 'Feature',
-            'properties': {
-                'name': 'keyboardsquare'
-            },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates':[[
-                [12,45],
-                    [12.025, 45],
-                    [12.025, 45.02],
-                    [12, 45.02],
-                    [12, 45]
-                    ]]
-            }
-        }
-    });
-
-      map.addLayer({
-        'id': 'keyboardnav',
-        'type': 'line',
-        'source': 'keyboardsquare',
-        'layout': {},
-        'paint': {
-            'line-color': '#fff',
-            'line-opacity': 1
-        }
-    });
-      window.addEventListener("keydown", dealWithKeyboard, false);
+      minimap.addSource('redsquare',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'redsquare'},'geometry': {'type': 'Polygon','coordinates':[[42, 53],[-17, 53],[-17, 34],[42, 34],[42, 53]]}}});
+      minimap.addLayer({'id': 'zoombox','type': 'line','source': 'redsquare','layout': {},'paint': {'line-color': '#f00','line-opacity': 0.8}});
+    }); 
+    map.on('load',function(e){
+      updateDataBox();
+      currentBounds = map.getBounds();
+      currentZoom = map.getZoom();
+      map.addSource('keyboardsquare',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'keyboardsquare'},'geometry': {'type': 'Polygon','coordinates':[[[12,45],[12.025, 45],[12.025, 45.02],[12, 45.02],[12, 45]]]}}});
+      map.addSource('shortrange',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'shortrange'},'geometry': {'type': 'Polygon','coordinates':[[[12,45],[12.025, 45],[12.025, 45.02],[12, 45.02],[12, 45]]]}}});
+      map.addSource('midrange',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'midrange'},'geometry': {'type': 'Polygon','coordinates':[[[12,45],[12.025, 45],[12.025, 45.02],[12, 45.02],[12, 45]]]}}});
+      map.addSource('longrange',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'longrange'},'geometry': {'type': 'Polygon','coordinates':[[[12,45],[12.025, 45],[12.025, 45.02],[12, 45.02],[12, 45]]]}}});
+      map.addLayer({'id': 'keyboardnav','type': 'line','source': 'keyboardsquare','layout': {},'paint': {'line-color': '#fff','line-opacity': 1}});
+        window.addEventListener("keydown", dealWithKeydown, false);
+        window.addEventListener("keyup", dealWithKeyup, false);
       })
     function moveRedSquare(e){
       var b = map.getBounds();
@@ -208,7 +140,7 @@ $(document).ready(function(){
       // console.log(map.getSource('keyboardsquare'))
 //*************************************************************
     }
-function dealWithKeyboard(e){
+function dealWithKeydown(e){
     var getCurrentPos = map.getSource("keyboardsquare")._data.geometry.coordinates[0];
     console.log("current pos = ",getCurrentPos)
     function keyboardMove(x,y){
@@ -259,6 +191,67 @@ function dealWithKeyboard(e){
   }
   if(e.keyCode == "85"){ //u
     keyboardMove(-0.025,0.02)
+  }
+  if(e.keyCode == "16"){ //shift
+    console.log("shift")
+      map.getSource("shortrange").setData({
+            'type': 'Feature',
+            'properties': {
+                'name': 'shortrange'
+            },
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates':[[
+                    [getCurrentPos[0][0]-0.025, getCurrentPos[0][1]-0.02],
+                    [getCurrentPos[1][0]+0.025, getCurrentPos[1][1]-0.02],
+                    [getCurrentPos[2][0]+0.025, getCurrentPos[2][1]+0.02],
+                    [getCurrentPos[3][0]-0.025, getCurrentPos[3][1]+0.02],
+                    [getCurrentPos[4][0]-0.025, getCurrentPos[4][1]-0.02]
+                    ]]
+            }
+        })
+      map.addLayer({'id': 'shortrange','type': 'line','source': 'shortrange','layout': {},'paint': {'line-color': '#fff','line-opacity': 0.8}});
+      map.getSource("midrange").setData({
+            'type': 'Feature',
+            'properties': {
+                'name': 'midrange'
+            },
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates':[[
+                    [getCurrentPos[0][0]-0.05, getCurrentPos[0][1]-0.04],
+                    [getCurrentPos[1][0]+0.05, getCurrentPos[1][1]-0.04],
+                    [getCurrentPos[2][0]+0.05, getCurrentPos[2][1]+0.04],
+                    [getCurrentPos[3][0]-0.05, getCurrentPos[3][1]+0.04],
+                    [getCurrentPos[4][0]-0.05, getCurrentPos[4][1]-0.04]
+                    ]]
+            }
+        })
+      map.addLayer({'id': 'midrange','type': 'line','source': 'midrange','layout': {},'paint': {'line-color': '#fff','line-opacity': 0.5}});
+      map.getSource("longrange").setData({
+            'type': 'Feature',
+            'properties': {
+                'name': 'longrange'
+            },
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates':[[
+                    [getCurrentPos[0][0]-0.075, getCurrentPos[0][1]-0.06],
+                    [getCurrentPos[1][0]+0.075, getCurrentPos[1][1]-0.06],
+                    [getCurrentPos[2][0]+0.075, getCurrentPos[2][1]+0.06],
+                    [getCurrentPos[3][0]-0.075, getCurrentPos[3][1]+0.06],
+                    [getCurrentPos[4][0]-0.075, getCurrentPos[4][1]-0.06]
+                    ]]
+            }
+        })
+      map.addLayer({'id': 'longrange','type': 'line','source': 'longrange','layout': {},'paint': {'line-color': '#fff','line-opacity': 0.3}});
+  }
+}
+function dealWithKeyup(e){
+  if(e.keyCode == "16"){
+    map.removeLayer('shortrange');
+    map.removeLayer('midrange');
+    map.removeLayer('longrange');
   }
 }
 //*************************************
