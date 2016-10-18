@@ -232,6 +232,9 @@ function dealWithKeyboard(e){
     getCurrentPos = map.getSource("keyboardsquare")._data.geometry.coordinates[0];
     currentSquare.center = [(getCurrentPos[2][0]-getCurrentPos[0][0])/2+getCurrentPos[0][0], (getCurrentPos[2][1]-getCurrentPos[0][1])/2+getCurrentPos[0][1]]
     updateDataBox();
+    if(currentSquare.center[1]<currentBounds._sw.lat || currentSquare.center[1]>currentBounds._ne.lat || currentSquare.center[0]<currentBounds._sw.lng || currentSquare.center[0]>currentBounds._ne.lng){
+      map.panTo(currentSquare.center);
+    }
     }
   if(e.keyCode == "73" || e.keyCode == "38"){ //i or up arrow
     keyboardMove(0,0.02);
@@ -248,7 +251,7 @@ function dealWithKeyboard(e){
   if(e.keyCode == "188" || e.keyCode == "40" || e.keyCode == "75"){ //, + down + k
     keyboardMove(0,-0.02)
   }
-  if(e.keyCode == "77"){ //m
+  if(e.keyCode == "77" || e.keyCode == "78"){ //m + n
     keyboardMove(-0.025,-0.02)
   }
   if(e.keyCode == "74" || e.keyCode == "37"){ //j + left || "37"
