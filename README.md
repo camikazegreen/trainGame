@@ -221,7 +221,9 @@ Example: Amsterdam Station. There are six towns within 50 Miles, so your maximum
 Example: Amsterdam Station. Early in the game, only the Hague is within range of Amsterdam. If it is connected, you will get 100% of your max with one city: 50%. As the game progresses, Brussels comes within the range. If you connect to it, you will have 100% of two cities: 62.5%, if you don't connect, your score will go to 50% of two cities: 31.25%. Eventually Frankfurt, Paris and London all come in to play and give you the opportunity to get a 100% score here, but if you don't connect, your score will continue to go down. Also, keep in mind that as you connect to each of these cities, they will be on the fringe of the network, and will likely only be connected to a small number of the cities that they could be connected to, and will get small scores for their network.
 
 -- How far you can travel (20%) - (This expectation changes based on both your railroad and your competitors. The longest line in existence equals 100% here.)
+
 -- Attractiveness of the cities/stations connected (20%)
+
 -- Customer confidence (Ranges from 0 to 1, and is a multiplier on the whole thing.)
 
 
