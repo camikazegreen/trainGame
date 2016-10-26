@@ -113,8 +113,8 @@ There will be a report that will show all of the routes of all of the trains com
 - --The combination of those two scores determine what percentage of passengers are going to each stop.
 - --Each car holds 100 people, so it is easy to calculate how many people and add them to the train as a block with a timestamp e.g. 15 people from Tucson to Phoenix at 11:15am.
 - --When the train arrives in Phoenix, those 15 people get off, and the fare is calculated.
-- --The rate increases every 50 miles, and applies to the whole fare, so if it goes from $5 to $6 to $7, it would cost $5 to go 50 miles, and $12 to go 100 miles, and $21 to go 150 miles, etc.
-- --The fare = rate x speed(where speed changes with the times. Early on 20 miles/hour = 1 rate, but eventually 100 miles/hour = 1 rate. This will be determined by your fastest competitor and how they change your customers expectations. If you have the fastest railroad, you can get a bonus, if you are slower, you get lower fares.)
+- --The rate increases every 50 miles, and applies to the whole fare, so if it goes from $5 to $6 to $7, it would cost $5 to go 50 miles, and $12 to go 100 miles, and $21 to go 150 miles, etc. (This is calculated as the crow flies, not along miles of track. People will have an expectation that they can get to a nearby city quickly, if you have them take a big loop to get there, they won't pay more for it.)
+- --The fare = rate x speed(where rate and speed both change with the times. Early on 20 miles/hour = 1 rate, but eventually 100 miles/hour = 1 rate. This will be determined by your fastest competitor and how they change your customers expectations. If you have the fastest railroad, you can get a bonus, if you are slower, you get lower fares.)
 
 On your station report, it will list the fare to all available locations from that station. This way you can see the value of adding Limited or Express lines.
 
@@ -200,10 +200,31 @@ I need to figure out how to make this game so that it doesn&#39;t scale without 
 
 Customer confidence is one of the factors that determines how many passengers will come from a station and several things contribute to it.
 
-- --Total attractiveness score of the other stations that they can get to from their station. Without transfers. 2 Stations or less is weak, 10 Stations or more is strong.
 - --Do you have any night trains? Night trains are unprofitable routes, but they increase customer confidence.
 - --How many of which types of bridges. Wooden Trestles = low confidence, Etc.
 - --Any train crashes, completely wreck confidence across the whole network. Even trains on other networks can have an impact, but not as big as if it is on your network.
 - --Any time spent stuck behind slower trains reduces confidence.
 
 By the way, any tracks built will have two way tracks. You can double track if you want
+
+**Passenger Algorithm**
+
+The maximum amount of passengers/year will equal 100% of the population of the city within the reach of the station. By default, 20% of that will always come to the station. The other 80% must be earned through the value of the network.
+
+This comes in five parts:
+-- Local Network (20%) - Percentage and number of nearby towns (within 50 miles) connected (Being connected to 10 or more = 100%. If there is only one town within 50 miles, you can earn a maximum score of 55%)
+
+Example: Amsterdam Station. There are six towns within 50 Miles, so your maximum Local Network Score is 80%. However, if of those six towns, only Utrecht seems worthwhile to connect to, you would only have a Local Network Score of 13.33%
+
+-- Mid-range Network (20%) - Percentage and number of mid-range cities connected (Mid-range is defined as within a ten hour trip, so this distance will increase as faster transit emerges. Cities are defined as having labels of place-city-md-s or larger. Similar to the local network score, except it ranges from 1-5 instead of 1-10.) 
+
+Example: Amsterdam Station. Early in the game, only the Hague is within range of Amsterdam. If it is connected, you will get 100% of your max with one city: 50%. As the game progresses, Brussels comes within the range. If you connect to it, you will have 100% of two cities: 62.5%, if you don't connect, your score will go to 50% of two cities: 31.25%. Eventually Frankfurt, Paris and London all come in to play and give you the opportunity to get a 100% score here, but if you don't connect, your score will continue to go down. Also, keep in mind that as you connect to each of these cities, they will be on the fringe of the network, and will likely only be connected to a small number of the cities that they could be connected to, and will get small scores for their network.
+
+-- How far you can travel (20%) - (This expectation changes based on both your railroad and your competitors. The longest line in existence equals 100% here.)
+-- Attractiveness of the cities/stations connected (20%)
+-- Customer confidence (Ranges from 0 to 1, and is a multiplier on the whole thing.)
+
+
+
+
+
