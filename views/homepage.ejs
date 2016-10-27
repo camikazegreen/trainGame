@@ -64,7 +64,14 @@ $(document).ready(function(){
     container: 'minimap',
     style: url,
     center: [11,45],
-    zoom: 1.636586
+    zoom: 1.636586,
+    scrollZoom: false,
+    dragRotate: false,
+    dragPan: false,
+    keyboard: false,
+    doubleClickZoom: false,
+    touchZoomRotate: false,
+    attributionControl: false
 });
     minimap.on('load',function(e){
       minimap.addSource('redsquare',{'type': 'geojson','data': {'type': 'Feature','properties': {'name': 'redsquare'},'geometry': {'type': 'Polygon','coordinates':[[42, 53],[-17, 53],[-17, 34],[42, 34],[42, 53]]}}});

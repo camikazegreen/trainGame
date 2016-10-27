@@ -11,11 +11,12 @@ module.exports = {
   	start:{
   		type: 'string'
   	},
-  	stop:
+  	stop:{
   		type:'string'
   },
   polyline:{
   		type:'string'
   }
-};
+}
+}
 
