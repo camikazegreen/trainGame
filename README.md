@@ -226,7 +226,23 @@ Example: Amsterdam Station. Early in the game, only the Hague is within range of
 
 -- Customer confidence (Ranges from 0 to 1, and is a multiplier on the whole thing.)
 
+**Scouting Reports**
+Upon generating the map, also generate several regional scouting reports that will help choose where you would like to start your railroad.
+-- United Kingdom
+-- Iberian Peninsula
+-- France
+-- Low Countries
+-- Germany
+-- The Alps
+-- Italy
+-- The Balkans
+-- Turkey
+-- Central Europe
+-- North Africa
+-- Eastern Europe
 
+For each of these, create a bounding box that will contain the area. Then, create a distance grid with all cities sorted by population. 
+For any city that will be considered a "major city", show the local area (number of towns and total population), and the cities that will potentially become mid-range along with their distances.
 
 
 
