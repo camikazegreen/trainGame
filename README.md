@@ -2,6 +2,23 @@
 
 a [Sails](http://sailsjs.org) application
 
+### Requirements
+
+[npm](https://docs.npmjs.com/getting-started/installing-node) which requires [nodejs](https://nodejs.org/en/)
+
+clone repository,
+
+`git clone https://github.com/camikazegreen/trainGame.git`
+
+change into the new directory
+
+`cd trainGame`
+
+and run.
+`
+`npm i && sails lift`
+
+
 **Seeding the map**
 
 Here are Railroad Tycoon&#39;s 4 zoom levels and the corresponding zoom levels on MapBox:
@@ -216,7 +233,7 @@ This comes in five parts:
 
 Example: Amsterdam Station. There are six towns within 50 Miles, so your maximum Local Network Score is 80%. However, if of those six towns, only Utrecht seems worthwhile to connect to, you would only have a Local Network Score of 13.33%
 
--- Mid-range Network (20%) - Percentage and number of mid-range cities connected (Mid-range is defined as within a ten hour trip, so this distance will increase as faster transit emerges. Cities are defined as having labels of place-city-md-s or larger. Similar to the local network score, except it ranges from 1-5 instead of 1-10.) 
+-- Mid-range Network (20%) - Percentage and number of mid-range cities connected (Mid-range is defined as within a ten hour trip, so this distance will increase as faster transit emerges. Cities are defined as having labels of place-city-md-s or larger. Similar to the local network score, except it ranges from 1-5 instead of 1-10.)
 
 Example: Amsterdam Station. Early in the game, only the Hague is within range of Amsterdam. If it is connected, you will get 100% of your max with one city: 50%. As the game progresses, Brussels comes within the range. If you connect to it, you will have 100% of two cities: 62.5%, if you don't connect, your score will go to 50% of two cities: 31.25%. Eventually Frankfurt, Paris and London all come in to play and give you the opportunity to get a 100% score here, but if you don't connect, your score will continue to go down. Also, keep in mind that as you connect to each of these cities, they will be on the fringe of the network, and will likely only be connected to a small number of the cities that they could be connected to, and will get small scores for their network.
 
