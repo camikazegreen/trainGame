@@ -34,5 +34,10 @@
     "url": "git://github.com/camerongreen/trainGame.git"
   },
   "author": "camerongreen",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "connect-livereload": "^0.5.4",
+    "grunt-browser-sync": "^2.2.0",
+    "sails-hook-autoreload": "^0.13.1"
+  }
 }
