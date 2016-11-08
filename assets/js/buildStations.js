@@ -1,7 +1,6 @@
 function initializeBuildStations(map){
 	$(document).ready(function() {
     $('input[type=radio][name=station-chooser]').change(function() {
-		var i = map.currentSquare;
          var el = document.createElement('div');
         if (this.value == 'depot') {
             console.log("Making a depot");
@@ -16,7 +15,7 @@ function initializeBuildStations(map){
     		el.className = 'terminal';
         }
         new mapboxgl.Marker(el)
-        .setLngLat(i.center)
+        .setLngLat(map.currentSquare.center)
         .addTo(map);
     });
 });

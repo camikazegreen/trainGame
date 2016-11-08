@@ -6,7 +6,6 @@ moveKeyboardSquare(e);
 })
 function moveKeyboardSquare(e){
   currentBounds = map.getBounds();
-  // console.log(currentBounds);
 //check the center of the current square, and only move if it is outside of the bounds
 //get the center of the square
 //make sure the lat is not in between the bounds

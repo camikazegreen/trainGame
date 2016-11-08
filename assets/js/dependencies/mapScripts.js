@@ -48,7 +48,6 @@ map.currentSquare.center = [12,45]
 
     var features = map.queryRenderedFeatures(map.project(map.currentSquare.center));
     if(features[0]){
-      // console.log(features)
       document.getElementById("square-info").innerHTML = JSON.stringify(features[0].layer.id, null, 2);
     }
   } // updateDataBox

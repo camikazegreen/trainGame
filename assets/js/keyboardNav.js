@@ -31,7 +31,7 @@ onkeydown = onkeyup = function(e){
         }
         map.getSource("keyboardsquare").setData(map.currentSquare.data)
         getCurrentPos = map.getSource("keyboardsquare")._data.geometry.coordinates[0];
-
+        
         // calculate the square by taking the average of the corners.
         map.currentSquare.center = [(getCurrentPos[2][0]-getCurrentPos[0][0])/2+getCurrentPos[0][0], (getCurrentPos[2][1]-getCurrentPos[0][1])/2+getCurrentPos[0][1]]
         map.updateDataBox();
@@ -44,8 +44,7 @@ e = e || event; // to deal with IE
 keyMap[e.keyCode] = e.type == 'keydown';
 if(keyMap[16] && keyMap[32]){ //shift & space
     console.log("Shift and Space")
-    var box = document.getElementById("station-creator");
-    box.className = "";
+    $("#station-creator").removeClass("hidden");
 }
 if(keyMap[16]){ //shift
     console.log("shift")
