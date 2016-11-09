@@ -6,7 +6,11 @@ a [Sails](http://sailsjs.org) application
 
 [npm](https://docs.npmjs.com/getting-started/installing-node) which requires [nodejs](https://nodejs.org/en/)
 
-clone repository,
+Once you know you have npm installed, install sails globally.
+
+`npm i sails -g`
+
+Then clone this repository.
 
 `git clone https://github.com/camikazegreen/trainGame.git`
 
@@ -15,7 +19,7 @@ change into the new directory
 `cd trainGame`
 
 and run.
-`
+
 `npm i && sails lift`
 
 
@@ -258,7 +262,7 @@ Upon generating the map, also generate several regional scouting reports that wi
 -- North Africa
 -- Eastern Europe
 
-For each of these, create a bounding box that will contain the area. Then, create a distance grid with all cities sorted by population. 
+For each of these, create a bounding box that will contain the area. Then, create a distance grid with all cities sorted by population.
 For any city that will be considered a "major city", show the local area (number of towns and total population), and the cities that will potentially become mid-range along with their distances.
 
 
