@@ -1,41 +1,49 @@
 .depot {
-	width: 15px;
-	height: 15px;
+	width: 12px;
+	height: 12px;
 	background: red;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-    border-color: white;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
 }
 .station {
-	width: 15px;
-	height: 15px;
+	width: 12px;
+	height: 12px;
 	background: red;
-    border-color: white;
 }
 .terminal {
-    background: white;
-    width: 18px;
-    height: 18px;
+    background: red;
+    width: 12px;
+    height: 12px;
     position: relative;
     text-align: center;
     -webkit-transform: rotate(20deg);
        -moz-transform: rotate(20deg);
         -ms-transform: rotate(20deg);
          -o-transform: rotate(20eg);
-    border-color: white;
 }
 .terminal:before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    height: 18px;
-    width: 18px;
+    height: 12px;
+    width: 12px;
     background: red;
     -webkit-transform: rotate(135deg);
        -moz-transform: rotate(135deg);
         -ms-transform: rotate(135deg);
          -o-transform: rotate(135deg);
-    border-color: white;
+}
+.four {
+    width:6px;
+    height:6px;
+    background: white;
+    border: 3px solid red;
+}
+.four:before {
+    width:6px;
+    height:6px;
+    background: white;
+    border: 3px solid red;
 }
